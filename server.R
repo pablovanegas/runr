@@ -1,6 +1,6 @@
 # server.R
 library(shiny)
-library(shinythemes)  # Asegúrate de tener esta línea
+library(shinythemes)  
 
 renderLogEntry <- function(entry){
   paste0(entry, " - ", date())
@@ -15,14 +15,25 @@ shinyServer(function(input, output, session) {
     ))
   })
   
+  # Agrega este observador para actualizar el tema del editor
+  observe({
+    updateAceEditor(
+      session,
+      "rmd",
+      theme = input$theme_code
+    )
+  })
+  
   output$knitDoc <- renderUI({
     input$eval
     HTML(knitr::knit2html(text = isolate(input$rmd), quiet = TRUE))
   })
+  
   #clear the editor
   observeEvent(input$clear,{
     updateAceEditor(session,'rmd',value = '')
   })
+  
   #Open chunk
   observeEvent(input$open_chunk,{
     updateAceEditor(session,'rmd',value = paste(isolate(input$rmd),"\n```{r}\n\n```\n",sep = ''))

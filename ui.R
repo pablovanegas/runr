@@ -5,16 +5,17 @@ library(markdown)
 library(knitr)
 library(dplyr)
 library(shinyjs)
-library(shinythemes)  # Añade esta línea
+library(shinythemes)  
 
 shinyUI(
   fluidPage(
-    useShinyjs(),  # Añade esta línea
+    useShinyjs(),  
     sidebarLayout(
       sidebarPanel(
         h2("Test"),
         h3("Aqui esta el sidebar"),
-        actionButton("theme_button", "Elige un tema"),  # Añade esta línea
+        actionButton("theme_button", "Elige un tema"),  
+        selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance')
       ),
       mainPanel(
         h1("Shiny Ace knitr Example"),
