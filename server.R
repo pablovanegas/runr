@@ -1,11 +1,19 @@
+# server.R
 library(shiny)
-
+library(shinythemes)  # Asegúrate de tener esta línea
 
 renderLogEntry <- function(entry){
   paste0(entry, " - ", date())
 }
 
 shinyServer(function(input, output, session) {
+  
+  observeEvent(input$theme_button, {
+    showModal(modalDialog(
+      title = "Elige un tema",
+      shinythemes::themeSelector()
+    ))
+  })
   
   output$knitDoc <- renderUI({
     input$eval
@@ -43,9 +51,4 @@ shinyServer(function(input, output, session) {
     # Update the editor with the new value
     updateAceEditor(session, 'rmd', value = new_val)
   })
-  
-
-  
-  
 })
-
