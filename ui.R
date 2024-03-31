@@ -7,8 +7,6 @@ library(shinyjs)  # Añade esta línea
 
 shinyUI(
   fluidPage(
-    useShinyjs(),  # Añade esta línea
-    extendShinyjs(text = "shinyjs.triggerEval = function() { $('#eval').click(); }"),  # Añade esta línea
     h1("Shiny Ace knitr Example"),
     fluidRow(
       column(
@@ -25,9 +23,9 @@ shinyUI(
                     )
                   )),
         
-        actionButton("eval", "Update"),
-        actionButton('clear', 'Clear'),
-        actionButton("open_chunk", "Insert Chunk")
+        actionButton("eval", "Run", icon = icon('play')),
+        actionButton('clear', 'Clear', icon = icon('eraser')),
+        actionButton("open_chunk", "Insert Chunk", icon = icon('plus')),
       ),
       column(
         6,
