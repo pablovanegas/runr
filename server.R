@@ -62,4 +62,24 @@ shinyServer(function(input, output, session) {
     # Update the editor with the new value
     updateAceEditor(session, 'rmd', value = new_val)
   })
+  
+  # Agrega estos manejadores de descarga para los botones save_code y save_knit
+  output$save_code <- downloadHandler(
+    filename = function() {
+      paste("code-", Sys.Date(), ".Rmd", sep="")
+    },
+    content = function(file) {
+      writeLines(input$rmd, file)
+    }
+  )
+  
+  output$save_knit <- downloadHandler(
+    filename = function() {
+      paste("knit-", Sys.Date(), ".html", sep="")
+    },
+    content = function(file) {
+      knit2html(text = input$rmd, output = file)
+    }
+  )
+  
 })

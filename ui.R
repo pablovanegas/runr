@@ -15,7 +15,9 @@ shinyUI(
         h2("Test"),
         h3("Aqui esta el sidebar"),
         actionButton("theme_button", "Elige un tema"),  
-        selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance')
+        selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance'),
+        downloadButton('save_code', 'Guardar codigo', icon = icon('save')),
+        downloadButton('save_knit', 'Guardar knitr', icon = icon('save')),
       ),
       mainPanel(
         h1("Shiny Ace knitr Example"),
