@@ -40,15 +40,7 @@ shinyServer(function(input, output, session) {
   })
   
   #Hotkeys
-  vals <- reactiveValues(log = "")
-  observeEvent(input$rmd_run_key, {
-    vals$log <- paste(vals$log, renderLogEntry("Run Key"), sep = "\n")
-  })
-  
-  observeEvent(input$rmd_run_key, {
-    js$triggerEval()
-  })
-  
+
   observeEvent(input$rmd_open_chunk, {
     # Get the current value of the editor
     old_val <- isolate(input$rmd)

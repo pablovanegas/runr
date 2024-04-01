@@ -28,12 +28,7 @@ shinyUI(
             verbatimTextOutput("log"),
             aceEditor("rmd", mode = "markdown", value = init,
                       hotkeys = list(
-                        open_chunk = 'Ctrl-Alt-I',
-                        help_key = "F1",
-                        run_key = list(
-                          win = "Ctrl-R|Ctrl-Shift-Enter",
-                          mac = "CMD-ENTER|CMD-SHIFT-ENTER"
-                        )
+                        open_chunk = 'Ctrl-Alt-I'
                       )),
             
             actionButton("eval", "Run", icon = icon('play')),
