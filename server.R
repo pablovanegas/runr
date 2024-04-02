@@ -8,6 +8,9 @@ renderLogEntry <- function(entry){
 
 shinyServer(function(input, output, session) {
   
+  # Ocultar el panel lateral al inicio
+  hide("sidebar")
+  
   observeEvent(input$theme_button, {
     showModal(modalDialog(
       title = "Elige un tema",
@@ -40,7 +43,8 @@ shinyServer(function(input, output, session) {
   })
   
   #Hotkeys
-
+  
+  ## Open chunk hotkey
   observeEvent(input$rmd_open_chunk, {
     # Get the current value of the editor
     old_val <- isolate(input$rmd)
@@ -54,7 +58,23 @@ shinyServer(function(input, output, session) {
     # Update the editor with the new value
     updateAceEditor(session, 'rmd', value = new_val)
   })
-  
+
+  ## Open help menu hotkey
+  observeEvent(input$rmd_help_key, {
+    # Mostrar el menú de ayuda
+    showModal(modalDialog(
+      title = "Help Menu",
+      h2("Hot-Keys"), # Título del menú de ayuda
+      "Use the following hot-keys:", # Descripción de los hot-keys
+      tags$ul(
+        tags$li("Ctrl-Alt-I: Open Chunk"), # Hot-key para abrir un nuevo bloque de código
+        tags$li("Ctrl-F: Buscar y Reemplazar"), # Hot-key para guardar el código
+        tags$li("F1: Help Menu"), # Hot-key para abrir el menú de ayuda
+        tags$li("Ctrl-Z: Undo"), # Hot-key para deshacer la última acción
+        tags$li("Ctrl-Y: Redo") # Hot-key para rehacer la última acción
+      )
+    ))
+  })  
   # Agrega estos manejadores de descarga para los botones save_code y save_knit
   output$save_code <- downloadHandler(
     filename = function() {
@@ -74,4 +94,8 @@ shinyServer(function(input, output, session) {
     }
   )
   
+  # Toggle sidebar
+  observeEvent(input$toggleSidebar, {
+    toggle("sidebar")
+  })
 })
