@@ -1,12 +1,52 @@
 library(shiny)
 library(shinyAce)
-#Design 1 : CORREGIR URGENTE PARA DISEÑO FINAL (NO USAR DE NOTAS)
+
 modes <- getAceModes()
 themes <- getAceThemes()
-init <- "
-Esta es tu editor de codigo
 
+
+
+foo <- function() {
+  pb <- progress_bar$new(
+    format = " [:bar] :current/:total (:percent) eta: :eta",
+    total = 5, clear = FALSE)
+  for(i in 1:5) {
+    pb$tick()
+    Sys.sleep(1)
+  }
+}
+init <- "
+
+***************************************************
+*                                                 *
+*          Esta es tu interfaz de codigo.RMD      *
+*                                                 *
+***************************************************
 Abrir Help menu = F1
+
+
+SI F1 ES PRESIONADO EN LA CONSOLA EN VIVO MOSTRAR:
+
+## POR IMPRIMIR
+
+***************************************************
+Presionaste Ayuda: F1
+***************************************************
+Hotkeys :
+
+
+  - Ejecutar codigo : Ctrl + Enter
+  - 
+  -
+  -
+  - source code: F2
+
+***************************************************
+
+
+
+
+
 
 # Puedes añadir titulos!
 Y cualquier modificacion usual en un markdown

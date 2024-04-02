@@ -1,16 +1,16 @@
 # server.R
 library(shiny)
 library(shinythemes)  
-# Design 1:
+# Design 2:
 renderLogEntry <- function(entry){
   paste0(entry, " - ", date())
 }
+
 
 shinyServer(function(input, output, session) {
   
   # Ocultar el panel lateral al inicio
   hide("sidebar")
-  
   observeEvent(input$theme_button, {
     showModal(modalDialog(
       title = "Elige un tema",
@@ -97,5 +97,13 @@ shinyServer(function(input, output, session) {
   # Toggle sidebar
   observeEvent(input$toggleSidebar, {
     toggle("sidebar")
+  })
+  
+  #Consola en vivo
+  console <- function(message) {
+    shinyjs::html("console", message)
+  }
+  observeEvent(input$console, {
+    console(input$console)
   })
 })
