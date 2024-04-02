@@ -71,7 +71,8 @@ shinyServer(function(input, output, session) {
         tags$li("Ctrl-F: Buscar y Reemplazar"), # Hot-key para guardar el código
         tags$li("F1: Help Menu"), # Hot-key para abrir el menú de ayuda
         tags$li("Ctrl-Z: Undo"), # Hot-key para deshacer la última acción
-        tags$li("Ctrl-Y: Redo") # Hot-key para rehacer la última acción
+        tags$li("Ctrl-Y: Redo"), # Hot-key para rehacer la última acción
+        tags$li("F2: Source code")
       )
     ))
   })  

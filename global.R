@@ -5,9 +5,39 @@ modes <- getAceModes()
 themes <- getAceThemes()
 
 init <- "
-Esta es tu editor de codigo
 
+***************************************************
+*                                                 *
+*          Esta es tu interfaz de codigo.RMD      *
+*                                                 *
+***************************************************
 Abrir Help menu = F1
+
+# HASTA ACA DECORACION INIT
+
+
+SI F1 ES PRESIONADO EN LA CONSOLA EN VIVO MOSTRAR:
+
+## POR IMPRIMIR
+
+***************************************************
+Presionaste Ayuda: F1
+***************************************************
+Hotkeys :
+
+
+  - Ejecutar codigo : Ctrl + Enter
+  - 
+  -
+  -
+  - source code: F2
+
+***************************************************
+
+
+
+
+
 
 # Puedes añadir titulos!
 Y cualquier modificacion usual en un markdown
