@@ -6,7 +6,7 @@ library(knitr)
 library(dplyr)
 library(shinyjs)
 library(shinythemes)  
-
+# Design 1 
 shinyUI(
   fluidPage(
     useShinyjs(),  
