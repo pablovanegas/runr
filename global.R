@@ -16,13 +16,7 @@ foo <- function() {
   }
 }
 init <- "
-'
-***************************************************
-*                                                 *
-*          Esta es tu interfaz de codigo.RMD      *
-*                                                 *
-***************************************************
-'
+
 Abrir Help menu = F1
 
 # Puedes añadir titulos!
@@ -51,11 +45,9 @@ and load online data
 library(readr)
 url <- 'https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2'
 
-# Usa guess_delim() para adivinar el delimitador
-delim <- guess_delim(url)
 
 # Luego, usa read_delim() con el delimitador adivinado
-df1 <- read_delim(url, delim = delim, skip = 13, quote = '')
+df1 <- read_delim(url, delim = '\t', skip = 13, quote = '')
 
 print(head(df1), 5)
 

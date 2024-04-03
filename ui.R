@@ -1,51 +1,49 @@
-library(shiny)
-library(shinythemes)
-library(shinyWidgets)
-library(shinydashboard)
-
-ui <- fluidPage(
-  titlePanel("Mi App Shiny"),
-  theme = shinytheme("flatly"),
-  shinydashboard::dashboardPage(
-    header = dashboardHeader(title = "Opciones"),
-    sidebar = dashboardSidebar(
-      sidebarMenu(
-        id = "tabs",
-        menuItem("Help", tabName = "help", icon = icon("question")),
-        menuItem("Themes", tabName = "themes", icon = icon("paint-brush"),
-                 menuSubItem("Application Theme", tabName = "application_theme"),
-                 menuSubItem("Editor Theme", tabName = "editor_theme")),
-        menuItem("Save", icon = icon("th"), tabName = "save",
-                 menuSubItem("Save rmd", tabName = "save_rmd"),
-                 menuSubItem("Save knitr", tabName = "save_knirt")),
-        menuItem("About", tabName = "about",
-                 menuSubItem("Support:", tabName = "support"),
-                 menuSubItem("Source Code", tabName = "source_code"))
-      )
-    ),
-    body = dashboardBody(
-      mainPanel(
-        h1("Shiny Ace knitr Example"),
-        fluidRow(
-          column(
-            12,
-            h2("Source R-Markdown"),
-            verbatimTextOutput("log"),
-            aceEditor("rmd", mode = "markdown",value = init, 
-                      hotkeys = list(
-                        open_chunk = 'Ctrl-Alt-I',
-                        save_code = 'Ctrl-S',
-                        help_key = 'F1'
-                      ),
-                      autoComplete = "live")
+# ui.R
+shinyUI(
+  tagList(
+    tags$div(
+      fluidPage(
+        useShinyjs(),  
+        div(id = "sidebar",
+            sidebarPanel(
+              h2("Opciones"),
+              actionButton("theme_button", "Elige un tema"),  
+              selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance'),
+              downloadButton('save_code', 'Guardar codigo', icon = icon('save')),
+              downloadButton('save_knit', 'Guardar knitr', icon = icon('save')),
+            )
+        ),
+        mainPanel(
+          actionButton("toggleSidebar", "Opciones"),
+          h1("Shiny Ace knitr Example"),
+          tags$div(
+            class = "row",
+            tags$div(
+              class = "col-md-12", # Cuadrado 1
+              h2("Source R-Markdown"),
+              verbatimTextOutput("log"),
+              aceEditor("rmd", mode = "markdown", value = init,
+                        hotkeys = list(
+                          open_chunk = 'Ctrl-Alt-I',
+                          save_code = "Ctrl-S",
+                          help_key = "F1"
+                        ),
+                        autoComplete = "live"),
+              actionButton("eval", "Run", icon = icon('play')),
+              actionButton('clear', 'Clear', icon = icon('eraser')),
+              actionButton("open_chunk", "Insert Chunk", icon = icon('plus'))
+            )
           ),
-          column(
-            12,
-            h1("Output"),
-            htmlOutput("knitDoc")
+          tags$div(
+            class = "row",
+            tags$div(
+              class = "col-md-12", # Cuadrado 2
+              h1("Knirt Completo"),
+              htmlOutput("knitDoc")
+            )
           )
         )
       )
     )
-  , skin  = "black")
+  )
 )
