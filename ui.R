@@ -1,4 +1,9 @@
+library(shiny)
+library(shinyAce)
+library(shinyjs)
+library(shinythemes)
 # ui.R
+#Design 1:
 shinyUI(
   tagList(
     tags$div(

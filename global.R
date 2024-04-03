@@ -47,9 +47,8 @@ url <- 'https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2'
 
 
 # Luego, usa read_delim() con el delimitador adivinado
-df1 <- read_delim(url, delim = '\t', skip = 13, quote = '')
+df1 <- read_delim(url, delim = '\t', skip = 13)
 
-print(head(df1), 5)
 
 ```
 "

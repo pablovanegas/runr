@@ -2,6 +2,7 @@
 library(shiny)
 library(shinythemes)  
 library(shinyAce)
+library(shinyjs)
 # Design 2:
 renderLogEntry <- function(entry){
   paste0(entry, " - ", date())
@@ -85,7 +86,8 @@ shinyServer(function(input, output, session) {
         tags$li("Ctrl-F: Buscar y Reemplazar"), # Hot-key para guardar el código
         tags$li("F1: Help Menu"), # Hot-key para abrir el menú de ayuda
         tags$li("Ctrl-Z: Undo"), # Hot-key para deshacer la última acción
-        tags$li("Ctrl-Y: Redo") # Hot-key para rehacer la última acción
+        tags$li("Ctrl-Y: Redo"), # Hot-key para rehacer la última acción
+        tags$li("F3: Source code")
       )
     ))
   })  
@@ -104,36 +106,23 @@ shinyServer(function(input, output, session) {
       paste("knit-", Sys.Date(), ".html", sep="")
     },
     content = function(file) {
-      knit2html(text = input$rmd, output = file)
+      # Guarda el contenido del editor Ace en un archivo temporal
+      tmp_file <- tempfile(fileext = ".Rmd")
+      writeLines(input$rmd, tmp_file)
+      
+      # Renderiza el archivo temporal a HTML
+      rmarkdown::render(input = tmp_file, output_file = file, output_format = "html_document")
     }
   )
+  
+  
   
   # Toggle sidebar
   observeEvent(input$toggleSidebar, {
     toggle("sidebar")
   })
   
-  # Consola al ejecutar el código
-  # En tu archivo server.R, reemplaza la función renderPrint para console con esto:
-  output$console <- renderPrint({
-    input$eval
-    # Divide el texto del editor Ace en bloques de código R
-    r_chunks <- strsplit(input$rmd, "```\\{r\\}|```")[[1]]
-    # Elimina los bloques de texto que no son código R
-    r_chunks <- r_chunks[seq(2, length(r_chunks), by = 2)]
-    # Ejecuta cada bloque de código R y captura su salida
-    console_output <- lapply(r_chunks, function(r_code) {
-      output <- capture.output(eval(parse(text = r_code)))
-      # Elimina los códigos de escape ANSI y los códigos de control de terminal
-      output <- gsub("\033\\[[0-9;]*m", "", output)
-      output <- gsub("\r", "", output)
-      output
-    })
-    # Imprime cada salida de consola individualmente
-    console_output <- unlist(console_output)
-    console_output
-  })
-  
+
   })
   
   
