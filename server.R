@@ -44,9 +44,6 @@ shinyServer(function(input, output, session) {
     HTML(knitr::knit2html(text = isolate(input$rmd), quiet = TRUE))
   })
   
-  
-  
-  
   #clear the editor
   observeEvent(input$clear,{
     updateAceEditor(session,'rmd',value = '')
@@ -87,7 +84,6 @@ shinyServer(function(input, output, session) {
         tags$li("F1: Help Menu"), # Hot-key para abrir el menú de ayuda
         tags$li("Ctrl-Z: Undo"), # Hot-key para deshacer la última acción
         tags$li("Ctrl-Y: Redo"), # Hot-key para rehacer la última acción
-        tags$li("F3: Source code")
       )
     ))
   })  
@@ -114,15 +110,10 @@ shinyServer(function(input, output, session) {
       rmarkdown::render(input = tmp_file, output_file = file, output_format = "html_document")
     }
   )
-  
-  
-  
   # Toggle sidebar
   observeEvent(input$toggleSidebar, {
     toggle("sidebar")
   })
-  
-
   })
   
   

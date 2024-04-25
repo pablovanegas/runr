@@ -1,6 +1,5 @@
 library(shiny)
 library(shinyAce)
-
 modes <- getAceModes()
 themes <- getAceThemes()
 
@@ -16,41 +15,64 @@ foo <- function() {
   }
 }
 init <- "
+## Seccion 1 
 
 Abrir Help menu = F1
 
-# Puedes añadir titulos!
-Y cualquier modificacion usual en un markdown
+# 
+
+
+
+Usted puede incluir chunks con operaciones, abajo un ejemplo.
+
 ```{r}
 2*3
 ```
 
-you can load datasets
+```{r}
+x <- rnorm(n=50)
+head(x)
+mean(x)
+```
+
+## Seccion 2
+
+you can load datasets and libraries
 
 ```{r}
 data(iris)
 ```
 
-and libraries
+```{r}
+knitr::kable(head(iris))
+```
 
 ```{r}
-library(dplyr)
 iris %>%
-  filter(Species == 'setosa') %>% head(5)
-```
+  group_by(Species) %>%
+  summarise(mean = mean(Sepal.Length), sd = sd(Sepal.Length))
 
-and load online data
+```
+## Seccion 3
+
+you also can make graphics
 
 ```{r}
-library(readr)
-url <- 'https://raw.githubusercontent.com/fhernanb/datos/master/medidas_cuerpo2'
-
-
-# Luego, usa read_delim() con el delimitador adivinado
-df1 <- read_delim(url, delim = '\t', skip = 13)
-
-
+plot(iris$Sepal.Length, iris$Sepal.Width)
 ```
+
+```{r}
+library(ggplot2)
+ggplot(iris, aes(x = Sepal.Length, y = Sepal.Width, color = Species)) +
+  geom_point()
+```
+## Sección 4
+
+Ahora es su turno, construya un chunk sencillo.
+
+```{r}
+# Escriba aqui algo
+```
+
 "
 
-#Corregir carga del data frame online

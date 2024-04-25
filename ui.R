@@ -16,8 +16,8 @@ shinyUI(
               selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance'),
               downloadButton('save_code', 'Guardar codigo', icon = icon('save')),
               downloadButton('save_knit', 'Guardar knitr', icon = icon('save')),
-            )
-        ),
+              tags$a(href = "https://github.com/pablovanegas/runr", target = "_blank", class = "btn btn-default shiny-bound-input", "Ver Código Fuente")            )
+        ),#
         mainPanel(
           actionButton("toggleSidebar", "Opciones"),
           h1("Shiny Ace knitr Example"),
@@ -43,7 +43,7 @@ shinyUI(
             class = "row",
             tags$div(
               class = "col-md-12", # Cuadrado 2
-              h1("Knirt Completo"),
+              h1("Resultado: "),
               htmlOutput("knitDoc")
             )
           )
