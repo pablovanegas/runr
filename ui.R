@@ -20,12 +20,12 @@ shinyUI(
         ),#
         mainPanel(
           actionButton("toggleSidebar", "Opciones"),
-          h1("Shiny Ace knitr Example"),
+          h1("Simple R"),
           tags$div(
             class = "row",
             tags$div(
               class = "col-md-12", # Cuadrado 1
-              h2("Source R-Markdown"),
+              h2("Tu codigo: "),
               verbatimTextOutput("log"),
               aceEditor("rmd", mode = "markdown", value = init,
                         hotkeys = list(

@@ -51,24 +51,31 @@ shinyServer(function(input, output, session) {
   
   #Open chunk
   observeEvent(input$open_chunk,{
-    updateAceEditor(session,'rmd',value = paste(isolate(input$rmd),"\n```{r}\n\n```\n",sep = ''))
-  })
+    delay(3000,{
+      updateAceEditor(session,'rmd',value = paste(isolate(input$rmd),"\n```{r}\n\n```\n",sep = ''))
+    })
+    #ADD DELAY TO THE SERVER SAVE THE EDITOR
+    })
   
   #Hotkeys
   
   ## Open chunk hotkey
   observeEvent(input$rmd_open_chunk, {
-    # Get the current value of the editor
-    old_val <- isolate(input$rmd)
     
-    # Define the new chunk
-    new_chunk <- "\n```{r}\n\n```\n"
-    
-    # Insert the new chunk at the end of the current value
-    new_val <- paste(old_val, new_chunk, sep = "")
-    
-    # Update the editor with the new value
-    updateAceEditor(session, 'rmd', value = new_val)
+    delay(3000, {
+      # Get the current value of the editor
+      old_val <- isolate(input$rmd)
+      
+      # Define the new chunk
+      new_chunk <- "\n```{r}\n\n```\n"
+      
+      # Insert the new chunk at the end of the current value
+      new_val <- paste(old_val, new_chunk, sep = "")
+      
+      # Update the editor with the new value
+      updateAceEditor(session, 'rmd', value = new_val)
+    })
+
   })
   
   ## Open help menu hotkey
@@ -114,8 +121,4 @@ shinyServer(function(input, output, session) {
   observeEvent(input$toggleSidebar, {
     toggle("sidebar")
   })
-  })
-  
-  
-  
-  
+})
