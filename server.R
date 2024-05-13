@@ -1,8 +1,11 @@
+source('init.R')
 # server.R
 library(shiny)
 library(shinythemes)  
 library(shinyAce)
 library(shinyjs)
+
+
 # Design 2:
 renderLogEntry <- function(entry){
   paste0(entry, " - ", date())
@@ -55,7 +58,7 @@ shinyServer(function(input, output, session) {
       updateAceEditor(session,'rmd',value = paste(isolate(input$rmd),"\n```{r}\n\n```\n",sep = ''))
     })
     #ADD DELAY TO THE SERVER SAVE THE EDITOR
-    })
+  })
   
   #Hotkeys
   
@@ -75,7 +78,7 @@ shinyServer(function(input, output, session) {
       # Update the editor with the new value
       updateAceEditor(session, 'rmd', value = new_val)
     })
-
+    
   })
   
   ## Open help menu hotkey

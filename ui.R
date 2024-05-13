@@ -4,8 +4,12 @@ library(shinyjs)
 library(shinythemes)
 # ui.R
 #Design 1:
-shinyUI(
+ui <- shinyUI(
   tagList(
+    tags$head(
+      tags$link(rel = "stylesheet", type = "text/css", href = "styles.css"),
+      tags$script(src = "script.js")
+    ),
     tags$div(
       fluidPage(
         useShinyjs(),  
@@ -13,10 +17,11 @@ shinyUI(
             sidebarPanel(
               h2("Opciones"),
               actionButton("theme_button", "Elige un tema"),  
-              selectInput('theme_code', 'Tema editor', choices = themes, selected = 'ambiance'),
+              selectInput('theme_code', 'Tema editor', choices = getAceThemes(), selected = 'ambiance'),
               downloadButton('save_code', 'Guardar codigo', icon = icon('save')),
               downloadButton('save_knit', 'Guardar knitr', icon = icon('save')),
-              tags$a(href = "https://github.com/pablovanegas/runr", target = "_blank", class = "btn btn-default shiny-bound-input", "Ver Código Fuente")            )
+              tags$a(href = "https://github.com/pablovanegas/runr", target = "_blank", class = "btn btn-default shiny-bound-input", "Ver Código Fuente"),
+              tags$a(href = "https://github.com/pablovanegas/runr", target = "_blank", class = "btn btn-default shiny-bound-input", "YALM generator") )
         ),#
         mainPanel(
           actionButton("toggleSidebar", "Opciones"),
